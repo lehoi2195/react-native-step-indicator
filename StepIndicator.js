@@ -1,6 +1,5 @@
 
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent,PropTypes } from 'react';
 import { View,Text,StyleSheet, Animated, TouchableWithoutFeedback } from 'react-native';
 
 const STEP_STATUS = {
@@ -60,8 +59,8 @@ export default class StepIndicator extends PureComponent {
     const { labels, direction } = this.props;
     return (
       <View style={[styles.container, direction === 'vertical' ? {flexDirection: 'row', flex:1} : {flexDirection: 'column'}]}>
-        {this.state.width !== 0 && this.renderProgressBarBackground()}
-        {this.state.width !== 0 && this.renderProgressBar()}
+        {this.state.width !== 0 && this.state.width !== 0 && this.renderProgressBarBackground()}
+        {this.state.width !== 0 && this.state.width !== 0 && this.renderProgressBar()}
         {this.renderStepIndicator()}
         {labels && this.renderStepLabels()}
       </View>
@@ -166,13 +165,11 @@ export default class StepIndicator extends PureComponent {
       var labelViews = labels.map((label,index) => {
         const selectedStepLabelStyle = index === currentPosition ? { color: this.customStyles.currentStepLabelColor } : { color: this.customStyles.labelColor }
         return (
-          <TouchableWithoutFeedback style={styles.stepLabelItem} key={index} onPress={() => this.stepPressed(index)}>
-            <View style={styles.stepLabelItem}>
-              <Text style={[styles.stepLabel,selectedStepLabelStyle , { fontSize: this.customStyles.labelSize }]}>
-                {label}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
+          <View style={styles.stepLabelItem} key={index}>
+            <Text style={[styles.stepLabel,selectedStepLabelStyle , { fontSize: this.customStyles.labelSize }]}>
+              {label}
+            </Text>
+          </View>
         )
       });
 
@@ -261,16 +258,16 @@ export default class StepIndicator extends PureComponent {
       Animated.sequence([
         Animated.timing(
           this.progressAnim,
-          {toValue: animateToPosition,duration:200}
+          {toValue: animateToPosition,duration:0}
         ),
         Animated.parallel([
           Animated.timing(
             this.sizeAnim,
-            {toValue: this.customStyles.currentStepIndicatorSize, duration:100}
+            {toValue: this.customStyles.currentStepIndicatorSize, duration:0}
           ),
           Animated.timing(
             this.borderRadiusAnim,
-            {toValue: this.customStyles.currentStepIndicatorSize/2, duration:100}
+            {toValue: this.customStyles.currentStepIndicatorSize/2, duration:0}
           )
         ])
       ]).start();
@@ -295,7 +292,8 @@ export default class StepIndicator extends PureComponent {
     step: {
       alignItems:'center',
       justifyContent:'center',
-      zIndex: 2
+      zIndex: 2,
+      elevation:3
     },
     stepContainer: {
       flex:1,
